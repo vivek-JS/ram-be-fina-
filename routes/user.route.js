@@ -5,6 +5,7 @@ import {
   deleteUser,
   findUser,
   login,
+  encryptPassword,
 } from "../controllers/user.controller.js";
 import { check } from "express-validator";
 import checkErrors from "../middlewares/checkErrors.middleware.js";
@@ -30,6 +31,7 @@ router
       check("type", "Please provide valid type").notEmpty(),
     ],
     checkErrors,
+    encryptPassword,
     findUser,
     createUser
   )

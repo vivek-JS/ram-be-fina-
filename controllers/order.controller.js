@@ -1,9 +1,11 @@
 import { Parser as CsvParser } from "json2csv";
 import catchAsync from "../utility/catchAsync.js";
-import Farmer from "../models/farmer.model.js";
 import Order from "../models/order.model.js";
-import generateResponse from "../utility/responseFormat.js";
-import { updateOne } from "./factory.controller.js";
+import {
+  createOne,
+  updateOne,
+  updateOneAndPushElement,
+} from "./factory.controller.js";
 
 const getCsv = catchAsync(async (req, res, next) => {
   // extracting data
@@ -58,46 +60,8 @@ const getCsv = catchAsync(async (req, res, next) => {
   res.status(200).end(csvDataParsed);
 });
 
-const createOrder = catchAsync(async (req, res, next) => {
-  let order = await new Order(req.body).save();
-
-  const response = await generateResponse(
-    200,
-    "Order placed successfully",
-    order,
-    undefined
-  );
-  return res.status(200).json(response);
-});
-
+const createOrder = createOne(Order, "Order");
 const changePaymentStatus = updateOne(Order, "Order");
-
-const updateOrder = catchAsync(async (req, res) => {
-  const order = await Order.findById(req.body.id, req.body, {
-    new: true,
-    runValidators: true,
-  });
-
-  if (!order) {
-    return next(new AppError("No document found with that ID", 404));
-  }
-
-  if (req.body.payment) {
-    order.payment.push(req.body.payment);
-  }
-
-  if (req.body.paymentStatus) {
-    order.paymentStatus = req.body.paymentStatus;
-  }
-  await order.save();
-
-  const response = await generateResponse(
-    200,
-    "Order updated successfully",
-    order,
-    undefined
-  );
-  return res.status(200).json(response);
-});
+const updateOrder = updateOneAndPushElement(Order, "Order");
 
 export { getCsv, createOrder, changePaymentStatus, updateOrder };

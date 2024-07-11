@@ -1,6 +1,7 @@
 import catchAsync from "../utility/catchAsync.js";
 import AppError from "../utility/appError.js";
 import generateResponse from "../utility/responseFormat.js";
+import APIFeatures from "../utility/apiFeatures.js";
 
 const createOne = (Model, modelName) =>
   catchAsync(async (req, res, next) => {
@@ -88,4 +89,53 @@ const deleteOne = (Model, modelName) =>
     return res.status(204).json(response);
   });
 
-export { createOne, deleteOne, updateOne, updateOneAndPushElement };
+const getOne = (Model, modelName, popOptions) =>
+  catchAsync(async (req, res, next) => {
+    let query = Model.findById(req.params.id);
+    if (popOptions) query = query.populate(popOptions);
+    const doc = await query;
+
+    if (!doc) {
+      return next(new AppError("No document found with that ID", 404));
+    }
+
+    const response = generateResponse(
+      "Success",
+      `${modelName} found successfully`,
+      doc,
+      undefined
+    );
+
+    return res.status(200).json(response);
+  });
+
+const getAll = (Model, modelName) =>
+  catchAsync(async (req, res, next) => {
+    let filter = {};
+
+    const features = new APIFeatures(Model.find(filter), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+
+    const doc = await features.query;
+
+    const response = generateResponse(
+      "Success",
+      `${modelName} found successfully`,
+      doc,
+      undefined
+    );
+
+    return res.status(200).json(response);
+  });
+
+export {
+  createOne,
+  deleteOne,
+  updateOne,
+  updateOneAndPushElement,
+  getOne,
+  getAll,
+};

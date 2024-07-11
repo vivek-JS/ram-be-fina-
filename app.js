@@ -36,6 +36,11 @@ import roomingOutRoute from "./routes/roomingOut.route.js";
 import userRoute from "./routes/user.route.js";
 import washingRoute from "./routes/washing.route.js";
 import cmsRoute from "./routes/cms.route.js";
+import employeeRoute from "./routes/employee.route.js";
+import attendanceRoute from "./routes/attendance.route.js";
+import reportingRoute from "./routes/reporting.route.js";
+import primaryHardeingRoute from "./routes/primaryHardening.route.js";
+import secondaryHardeingRoute from "./routes/secondaryHardening.route.js";
 
 // defining routes
 server.use("/api/v1/farmer", farmerRoute);
@@ -48,6 +53,11 @@ server.use("/api/v1/roomingOut", roomingOutRoute);
 server.use("/api/v1/user", userRoute);
 server.use("/api/v1/washing", washingRoute);
 server.use("/api/v1/cms", cmsRoute);
+server.use("/api/v1/employee", employeeRoute);
+server.use("/api/v1/attendance", attendanceRoute);
+server.use("/api/v1/reporting", reportingRoute);
+server.use("/api/v1/primaryHardeingRoute", primaryHardeingRoute);
+server.use("/api/v1/secondaryHardeingRoute", secondaryHardeingRoute);
 
 server.use(errorRouter);
 
