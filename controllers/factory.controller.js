@@ -20,14 +20,44 @@ const createOne = (Model, modelName) =>
 
 const updateOne = (Model, modelName) =>
   catchAsync(async (req, res, next) => {
+    // Find by id  and update
     const doc = await Model.findByIdAndUpdate(req.body.id, req.body, {
       new: true,
-      runValidators: true,
     });
 
+    // If doc not found
     if (!doc) {
       return next(new AppError("No document found with that ID", 404));
     }
+
+    const response = generateResponse(
+      "Success",
+      `${modelName} updated successfully`,
+      doc,
+      undefined
+    );
+
+    return res.status(200).json(response);
+  });
+
+const updateOneNestedData = (Model, modelName) =>
+  catchAsync(async (req, res, next) => {
+    const { id, ...updateData } = req.body;
+
+    // Find the document by ID
+    let doc = await Model.findById(id);
+
+    if (!doc) {
+      return next(new AppError(`No document found with that ID`, 404));
+    }
+
+    // Update nested properties based on updateData keys
+    for (let key in updateData) {
+      doc[key] = updateData[key];
+    }
+
+    // Save the updated document
+    doc = await doc.save();
 
     const response = generateResponse(
       "Success",
@@ -138,4 +168,5 @@ export {
   updateOneAndPushElement,
   getOne,
   getAll,
+  updateOneNestedData,
 };
