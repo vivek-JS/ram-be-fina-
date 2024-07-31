@@ -6,6 +6,10 @@ const dateSchema = new Schema({
     default: Date.now(),
     required: true,
   },
+  batchNumber: {
+    type: Number,
+    required: true,
+  },
   numberOfBottleReceived: {
     type: Number,
     required: true,
@@ -37,6 +41,8 @@ const plantationSchema = new Schema({
 const dispatchSchema = new Schema({
   date: {
     type: Date,
+    default: Date.now(),
+    required: true,
   },
   batchNumber: {
     type: Number,
@@ -54,9 +60,9 @@ const dispatchSchema = new Schema({
 
 const primaryHardeningSchema = new Schema(
   {
-    date: dateSchema,
-    plantation: plantationSchema,
-    dispatch: dispatchSchema,
+    initialData: [dateSchema],
+    plantation: [plantationSchema],
+    dispatch: [dispatchSchema],
   },
   { timestamps: true }
 );

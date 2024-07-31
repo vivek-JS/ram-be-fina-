@@ -4,6 +4,7 @@ import {
   updateOne,
   deleteOne,
   getOne,
+  getAll,
 } from "../controllers/factory.controller.js";
 
 const createSecondaryHardening = createOne(
@@ -19,10 +20,15 @@ const deleteSecondaryHardening = deleteOne(
   "SecondaryHardening"
 );
 const getSecondaryHardening = getOne(SecondaryHardening, "SecondaryHardening");
+const getAllSecondaryHardening = getAll(
+  SecondaryHardening,
+  "SecondaryHardening"
+);
 
 export {
   createSecondaryHardening,
   updateSecondaryHardening,
   deleteSecondaryHardening,
   getSecondaryHardening,
+  getAllSecondaryHardening,
 };

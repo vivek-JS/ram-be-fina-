@@ -32,7 +32,7 @@ labRouter
       check("inoculation.nameOfOperator")
         .notEmpty()
         .withMessage("Name of operator is required"),
-      check("inoculation.in").isDate().withMessage("In date is required"),
+      check("inoculation.in").isNumeric().withMessage("In number is required"),
     ],
     checkErrors,
     updateLab
@@ -44,7 +44,9 @@ labRouter
       check("contamination.numberOfBottles")
         .isNumeric()
         .withMessage("Number of bottles is required"),
-      check("contamination.in").isDate().withMessage("In date is required"),
+      check("contamination.in")
+        .isNumeric()
+        .withMessage("In number is required"),
     ],
     checkErrors,
     updateLab
@@ -62,7 +64,7 @@ labRouter
       check("mediaRoom.numberOfEmployeeEngaged")
         .isNumeric()
         .withMessage("Number of employee engaged is required"),
-      check("mediaRoom.in").isDate().withMessage("In date is required"),
+      check("mediaRoom.in").isNumeric().withMessage("In number is required"),
     ],
     checkErrors,
     updateLab
@@ -77,7 +79,7 @@ labRouter
       check("washing.numberOfEmployeeEngaged")
         .isNumeric()
         .withMessage("Number of employee engaged is required"),
-      check("washing.in").isDate().withMessage("In date is required"),
+      check("washing.in").isNumeric().withMessage("In number is required"),
     ],
     checkErrors,
     updateLab
@@ -92,7 +94,7 @@ labRouter
       check("plate.numberOfEmployeeEngaged")
         .isNumeric()
         .withMessage("Number of employee engaged is required"),
-      check("plate.in").isDate().withMessage("In date is required"),
+      check("plate.in").isNumeric().withMessage("In number is required"),
     ],
     checkErrors,
     updateLab
@@ -104,7 +106,7 @@ labRouter
       check("growthRoom.numberOfEmployeeEngaged")
         .isNumeric()
         .withMessage("Number of employee engaged is required"),
-      check("growthRoom.in").isDate().withMessage("In date is required"),
+      check("growthRoom.in").isNumeric().withMessage("In number is required"),
     ],
     checkErrors,
     updateLab
@@ -113,7 +115,7 @@ labRouter
     "/shooting",
     [
       check("id").notEmpty().withMessage("Id is required"),
-      check("shooting.in").isDate().withMessage("In date is required"),
+      check("shooting.in").isNumeric().withMessage("In number is required"),
     ],
     checkErrors,
     updateLab
@@ -128,7 +130,7 @@ labRouter
       check("rootingOut.numberOfBottles")
         .isNumeric()
         .withMessage("Number of bottles is required"),
-      check("rootingOut.in").isDate().withMessage("In date is required"),
+      check("rootingOut.in").isNumeric().withMessage("In number is required"),
     ],
     checkErrors,
     updateLab

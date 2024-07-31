@@ -10,13 +10,13 @@ const inoculationSchema = new Schema(
       type: String,
     },
     in: {
-      type: Date,
+      type: Number,
     },
     out: {
-      type: Date,
+      type: Number,
     },
   },
-  { _id: false }
+  { _id: false, timestamps: true }
 );
 
 const contaminationSchema = new Schema(
@@ -28,13 +28,13 @@ const contaminationSchema = new Schema(
       type: Number,
     },
     in: {
-      type: Date,
+      type: Number,
     },
     out: {
-      type: Date,
+      type: Number,
     },
   },
-  { _id: false }
+  { _id: false, timestamps: true }
 );
 
 const mediaRoomSchema = new Schema(
@@ -53,13 +53,13 @@ const mediaRoomSchema = new Schema(
       ref: "User",
     },
     in: {
-      type: Date,
+      type: Number,
     },
     out: {
-      type: Date,
+      type: Number,
     },
   },
-  { _id: false }
+  { _id: false, timestamps: true }
 );
 
 const washingSchema = new Schema(
@@ -75,13 +75,13 @@ const washingSchema = new Schema(
       ref: "User",
     },
     in: {
-      type: Date,
+      type: Number,
     },
     out: {
-      type: Date,
+      type: Number,
     },
   },
-  { _id: false }
+  { _id: false, timestamps: true }
 );
 
 const platesSchema = new Schema(
@@ -97,13 +97,13 @@ const platesSchema = new Schema(
       ref: "User",
     },
     in: {
-      type: Date,
+      type: Number,
     },
     out: {
-      type: Date,
+      type: Number,
     },
   },
-  { _id: false }
+  { _id: false, timestamps: true }
 );
 
 const growthRoomSchema = new Schema(
@@ -116,25 +116,25 @@ const growthRoomSchema = new Schema(
       ref: "User",
     },
     in: {
-      type: Date,
+      type: Number,
     },
     out: {
-      type: Date,
+      type: Number,
     },
   },
-  { _id: false }
+  { _id: false, timestamps: true }
 );
 
 const shootingSchema = new Schema(
   {
     in: {
-      type: Date,
+      type: Number,
     },
     out: {
-      type: Date,
+      type: Number,
     },
   },
-  { _id: false }
+  { _id: false, timestamps: true }
 );
 
 const rootingOutSchema = new Schema(
@@ -146,13 +146,13 @@ const rootingOutSchema = new Schema(
       type: Number,
     },
     in: {
-      type: Date,
+      type: Number,
     },
     out: {
-      type: Date,
+      type: Number,
     },
   },
-  { _id: false }
+  { _id: false, timestamps: true }
 );
 
 const labSchema = new Schema({
