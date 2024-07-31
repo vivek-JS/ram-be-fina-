@@ -36,6 +36,7 @@ import reportingRoute from "./routes/reporting.route.js";
 import labRoute from "./routes/lab.route.js";
 import primaryHardeingRoute from "./routes/primaryHardening.route.js";
 import secondaryHardeingRoute from "./routes/secondaryHardening.route.js";
+import jobTitleRoute from "./routes/jobTitle.route.js";
 
 // defining routes
 server.use("/api/v1/farmer", farmerRoute);
@@ -48,6 +49,7 @@ server.use("/api/v1/reporting", reportingRoute);
 server.use("/api/v1/lab", labRoute);
 server.use("/api/v1/primaryHardeingRoute", primaryHardeingRoute);
 server.use("/api/v1/secondaryHardeingRoute", secondaryHardeingRoute);
+server.use("/api/v1/jobTitle", jobTitleRoute);
 
 server.use(errorRouter);
 
