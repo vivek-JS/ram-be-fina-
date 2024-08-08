@@ -6,9 +6,8 @@ import {
 } from "./factory.controller.js";
 
 const createLab = createOne(Lab, "Lab");
-
 const updateLab = updateOneNestedData(Lab, "Lab");
-
 const deleteLab = deleteOne(Lab, "Lab");
+const getLab = () => {};
 
-export { createLab, updateLab, deleteLab };
+export { createLab, updateLab, deleteLab, getLab };

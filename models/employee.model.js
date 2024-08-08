@@ -15,6 +15,9 @@ const employeeSchema = new Schema({
     require: true,
     unique: true,
   },
+  jobTitle: {
+    type: String,
+  },
 });
 
 const Employee = model("Employee", employeeSchema);

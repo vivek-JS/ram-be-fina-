@@ -8,7 +8,11 @@ import { createOrder } from "../controllers/order.controller.js";
 import express from "express";
 import { check } from "express-validator";
 import checkErrors from "../middlewares/checkErrors.middleware.js";
-import { createVillage } from "../controllers/cms.controller.js";
+import {
+  createVillage,
+  createTaluka,
+  createDistrict,
+} from "../controllers/cms.controller.js";
 
 const router = express.Router();
 
@@ -26,6 +30,8 @@ router
     ],
     checkErrors,
     createVillage,
+    createTaluka,
+    createDistrict,
     createFarmer,
     [
       check("typeOfPlants")

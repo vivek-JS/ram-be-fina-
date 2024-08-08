@@ -7,6 +7,7 @@ import {
   updateEmployee,
   getEmployee,
 } from "../controllers/employee.controller.js";
+import { createJobTitle } from "../controllers/cms.controller.js";
 
 const router = express.Router();
 
@@ -19,11 +20,15 @@ router
       check("phoneNumber")
         .notEmpty()
         .withMessage("Phone number of employee is required"),
+      check("jobTitle")
+        .notEmpty()
+        .withMessage("Job title of employee is required"),
       check("email")
         .isEmail()
         .withMessage("Email address of employee is required"),
     ],
     checkErrors,
+    createJobTitle,
     createEmployee
   )
   .patch(

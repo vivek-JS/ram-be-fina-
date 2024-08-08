@@ -161,6 +161,43 @@ const getAll = (Model, modelName) =>
     return res.status(200).json(response);
   });
 
+const getCMS = (Model) =>
+  catchAsync(async (req, res, next) => {
+    const { name, entity } = req.params;
+
+    let data;
+
+    if (name && name !== "") {
+      data = await Model.find({
+        data: { $regex: `^${name}`, $options: "i" },
+        type: entity,
+      })
+        .limit(10)
+        .select("-_id -type -__v");
+    } else {
+      data = await Model.find({ type: entity }).limit(10).select("-_id -type -__v");
+    }
+
+    res.status(200).send(data);
+  });
+
+const createCMS = (Model, entity) =>
+  catchAsync(async (req, res, next) => {
+    const data = await Model.find({
+      data: req.body[entity],
+      type: entity,
+    });
+
+    if (data.length <= 0) {
+      await new Model({
+        data: req.body[entity],
+        type: entity,
+      }).save();
+    }
+
+    next();
+  });
+
 export {
   createOne,
   deleteOne,
@@ -168,5 +205,7 @@ export {
   updateOneAndPushElement,
   getOne,
   getAll,
+  getCMS,
+  createCMS,
   updateOneNestedData,
 };

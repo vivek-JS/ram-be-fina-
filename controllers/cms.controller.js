@@ -1,93 +1,33 @@
-import Village from "../models/village.model.js";
+import { getCMS, createCMS } from "../controllers/factory.controller.js";
+import CMS from "../models/cms.model.js";
 
-function capitalizeFirstLetter(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
+/*
+  -controller function to create cms
+  -it can be village, taluka, district, job title, crop, variety, vendor
+*/
 
-const createVillage = async (req, res, next) => {
-  req.body.village = capitalizeFirstLetter(req.body.village);
-  req.body.taluka = capitalizeFirstLetter(req.body.taluka);
-  req.body.district = capitalizeFirstLetter(req.body.district);
+const createVillage = createCMS(CMS, "village");
+const createTaluka = createCMS(CMS, "taluka");
+const createDistrict = createCMS(CMS, "district");
+const createJobTitle = createCMS(CMS, "jobTitle");
+const createCrop = createCMS(CMS, "crop");
+const createVariety = createCMS(CMS, "variety");
+const createVendor = createCMS(CMS, "vendor");
 
-  const { village, taluka, district } = req.body;
+/*
+  -controller function to get cms
+  -it can be village, taluka, district, job title, crop, variety, vendor
+*/
 
-  // find village
-  const villageData = await Village.findOne({
-    village,
-    taluka,
-    district,
-  });
+const getCMSData = getCMS(CMS);
 
-  // if village not found
-  if (!villageData) {
-    await Village.create({
-      village,
-      taluka,
-      district,
-    });
-  }
-
-  next();
+export {
+  createVillage,
+  createTaluka,
+  createDistrict,
+  createJobTitle,
+  createCrop,
+  createVariety,
+  createVendor,
+  getCMSData,
 };
-
-const getVillageData = async (req, res, next) => {
-  const data = await Village.aggregate([
-    {
-      $facet: {
-        villages: [
-          {
-            $group: {
-              _id: null,
-              villages: { $addToSet: "$village" },
-            },
-          },
-          {
-            $project: {
-              _id: 0,
-              villages: "$villages",
-            },
-          },
-        ],
-        talukas: [
-          {
-            $group: {
-              _id: null,
-              talukas: { $addToSet: "$taluka" },
-            },
-          },
-          {
-            $project: {
-              _id: 0,
-              talukas: "$talukas",
-            },
-          },
-        ],
-        districts: [
-          {
-            $group: {
-              _id: null,
-              districts: { $addToSet: "$district" },
-            },
-          },
-          {
-            $project: {
-              _id: 0,
-              districts: "$districts",
-            },
-          },
-        ],
-      },
-    },
-    {
-      $project: {
-        villages: { $arrayElemAt: ["$villages.villages", 0] },
-        talukas: { $arrayElemAt: ["$talukas.talukas", 0] },
-        districts: { $arrayElemAt: ["$districts.districts", 0] },
-      },
-    },
-  ]);
-
-  res.send(data);
-};
-
-export { createVillage, getVillageData };

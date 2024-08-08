@@ -1,10 +1,8 @@
 import express from "express";
-import { check } from "express-validator";
-import checkErrors from "../middlewares/checkErrors.middleware.js";
-import { getVillageData } from "../controllers/cms.controller.js";
+import { getCMSData } from "../controllers/cms.controller.js";
 
 const router = express.Router();
 
-router.get("/getVillageTalukaDistrict", getVillageData);
+router.get("/:entity/:name?", getCMSData);
 
 export default router;
