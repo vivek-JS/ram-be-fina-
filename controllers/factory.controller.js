@@ -143,7 +143,10 @@ const getAll = (Model, modelName) =>
   catchAsync(async (req, res, next) => {
     let filter = {};
 
-    const features = new APIFeatures(Model.find(filter), req.query)
+    const features = new APIFeatures(Model.find(filter).transform(doc => {
+      doc.id = doc._id;
+      return doc;
+    }), req.query)
       .filter()
       .sort()
       .limitFields()
