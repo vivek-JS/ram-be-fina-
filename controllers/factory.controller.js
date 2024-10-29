@@ -143,21 +143,23 @@ const getAll = (Model, modelName) =>
   catchAsync(async (req, res, next) => {
     let filter = {};
 
-    const features = new APIFeatures(Model.find(filter).transform(doc => {
-      doc.id = doc._id;
-      return doc;
-    }), req.query)
+    const features = new APIFeatures(Model.find(filter), req.query)
       .filter()
       .sort()
       .limitFields()
       .paginate();
 
-    const doc = await features.query;
+    const doc = await features.query.lean();
+
+    const transformedDoc = doc.map(item => {
+      const { _id, ...rest } = item;
+      return { id: _id, _id: _id, ...rest };
+    });
 
     const response = generateResponse(
       "Success",
       `${modelName} found successfully`,
-      doc,
+      transformedDoc,
       undefined
     );
 
