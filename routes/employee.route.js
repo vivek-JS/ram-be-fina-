@@ -6,12 +6,14 @@ import {
   deleteEmployee,
   updateEmployee,
   getEmployee,
+  getEmployees
 } from "../controllers/employee.controller.js";
 import { createJobTitle } from "../controllers/cms.controller.js";
 
 const router = express.Router();
 
 router
+  .get("/getEmployees", getEmployees)
   .get("/getEmployee", getEmployee)
   .post(
     "/createEmployee",
