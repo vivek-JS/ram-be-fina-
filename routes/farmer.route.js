@@ -34,6 +34,9 @@ router
     createDistrict,
     createFarmer,
     [
+      check("salesPerson")
+        .isMongoId()
+        .withMessage("Please provide id of sales person"),
       check("typeOfPlants")
         .notEmpty()
         .withMessage("Please provide type of plants"),

@@ -17,6 +17,11 @@ const orderSchema = new Schema(
       ref: "Farmer",
       required: true,
     },
+    salesPerson: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     typeOfPlants: {
       type: String,
       required: true,

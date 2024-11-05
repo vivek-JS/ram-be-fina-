@@ -151,7 +151,7 @@ const getAll = (Model, modelName) =>
 
     const doc = await features.query.lean();
 
-    const transformedDoc = doc.map(item => {
+    const transformedDoc = doc.map((item) => {
       const { _id, ...rest } = item;
       return { id: _id, _id: _id, ...rest };
     });
@@ -169,6 +169,8 @@ const getAll = (Model, modelName) =>
 const getCMS = (Model) =>
   catchAsync(async (req, res, next) => {
     const { name, entity } = req.params;
+    const { page = 1, limit = 10 } = req.query;
+    const skip = (page - 1) * limit;
 
     let data;
 
@@ -177,13 +179,19 @@ const getCMS = (Model) =>
         data: { $regex: `^${name}`, $options: "i" },
         type: entity,
       })
+        .skip(skip)
         .limit(10)
         .select("-_id -type -__v");
     } else {
-      data = await Model.find({ type: entity }).limit(10).select("-_id -type -__v");
+      data = await Model.find({ type: entity })
+        .skip(skip)
+        .limit(10)
+        .select("-_id -type -__v");
     }
 
-    res.status(200).send(data);
+    const formattedData = data.map((item) => item.data);
+
+    res.status(200).send(formattedData);
   });
 
 const createCMS = (Model, entity) =>

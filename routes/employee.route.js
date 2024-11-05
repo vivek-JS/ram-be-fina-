@@ -6,7 +6,7 @@ import {
   deleteEmployee,
   updateEmployee,
   getEmployee,
-  getEmployees
+  getEmployees,
 } from "../controllers/employee.controller.js";
 import { createJobTitle } from "../controllers/cms.controller.js";
 

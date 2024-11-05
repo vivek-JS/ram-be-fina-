@@ -18,7 +18,7 @@ const userSchema = new Schema({
     type: String,
     require: true,
   },
-  jobTitle:{
+  jobTitle: {
     type: String,
   },
   type: {

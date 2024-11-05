@@ -2,6 +2,7 @@ import { Parser as CsvParser } from "json2csv";
 import catchAsync from "../utility/catchAsync.js";
 import Order from "../models/order.model.js";
 import {
+  getAll,
   createOne,
   updateOne,
   updateOneAndPushElement,
@@ -60,8 +61,9 @@ const getCsv = catchAsync(async (req, res, next) => {
   res.status(200).end(csvDataParsed);
 });
 
+const getOrders = getAll(Order, "Order");
 const createOrder = createOne(Order, "Order");
-const changePaymentStatus = updateOne(Order, "Order");
-const updateOrder = updateOneAndPushElement(Order, "Order");
+const updateOrder = updateOne(Order, "Order");
+const addNewPayment = updateOneAndPushElement(Order, "Order");
 
-export { getCsv, createOrder, changePaymentStatus, updateOrder };
+export { getCsv, createOrder, updateOrder, addNewPayment, getOrders };
