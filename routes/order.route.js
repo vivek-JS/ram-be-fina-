@@ -7,6 +7,7 @@ import {
 } from "../controllers/order.controller.js";
 import { check } from "express-validator";
 import checkErrors from "../middlewares/checkErrors.middleware.js";
+import { upload } from "../middlewares/multer.middleware.js";
 
 const router = express.Router();
 
@@ -26,7 +27,11 @@ router
   )
   .patch(
     "/addNewPayment",
-    [check("id").isMongoId().withMessage("Please provide order id")],
+    upload.single('receiptPhoto'),
+    [
+      check("id").isMongoId().withMessage("Please provide order id"),
+      check("paymentAmount").notEmpty().withMessage("Please provide payment amount")
+    ],
     checkErrors,
     addNewPayment
   )

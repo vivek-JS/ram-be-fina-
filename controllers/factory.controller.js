@@ -74,7 +74,6 @@ const updateOneAndPushElement = (Model, modelName) =>
     const { id, paymentAmount } = req.body;
 
     const updateObj = { ...req.body };
-    // delete updateObj.id;
 
     if (paymentAmount !== undefined) {
       updateObj.$push = { payment: { paidAmount: paymentAmount } };

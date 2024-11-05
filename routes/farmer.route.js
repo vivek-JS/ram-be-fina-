@@ -13,12 +13,14 @@ import {
   createTaluka,
   createDistrict,
 } from "../controllers/cms.controller.js";
+import { upload } from "../middlewares/multer.middleware.js";
 
 const router = express.Router();
 
 router
   .post(
     "/createFarmer",
+    upload.single('receiptPhoto'),
     [
       check("name").notEmpty().withMessage("Please enter valid name"),
       check("village").notEmpty().withMessage("Please enter valid village"),

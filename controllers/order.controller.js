@@ -7,6 +7,7 @@ import {
   updateOne,
   updateOneAndPushElement,
 } from "./factory.controller.js";
+import generateResponse from "../utility/responseFormat.js";
 
 const getCsv = catchAsync(async (req, res, next) => {
   // extracting data
@@ -64,6 +65,37 @@ const getCsv = catchAsync(async (req, res, next) => {
 const getOrders = getAll(Order, "Order");
 const createOrder = createOne(Order, "Order");
 const updateOrder = updateOne(Order, "Order");
-const addNewPayment = updateOneAndPushElement(Order, "Order");
+const addNewPayment = catchAsync(async (req, res, next) => {
+  const { id, paymentAmount, receiptPhoto } = req.body;
+
+  const updateObj = { };
+  if (!updateObj.$push) updateObj.$push = {};
+
+  if (paymentAmount !== undefined) {
+    updateObj.$push.payment = { paidAmount: paymentAmount };
+  }
+  if (receiptPhoto !== undefined) {
+    updateObj.$push.receiptPhoto = receiptPhoto;
+  }
+
+  const doc = await Order.findByIdAndUpdate(id, updateObj, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!doc) {
+    return next(new AppError(`No order found with that ID`, 404));
+  }
+
+  const response = generateResponse(
+    "Success",
+    `order updated successfully`,
+    doc,
+    undefined
+  );
+
+  return res.status(200).json(response);
+});
+
 
 export { getCsv, createOrder, updateOrder, addNewPayment, getOrders };

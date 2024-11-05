@@ -46,9 +46,9 @@ const orderSchema = new Schema(
     bankName: {
       type: String,
     },
-    receiptPhoto: {
+    receiptPhoto: [{
       type: String,
-    },
+    }],
     paymentStatus: {
       type: String,
       required: true,
