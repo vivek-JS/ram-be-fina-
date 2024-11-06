@@ -1,5 +1,35 @@
 import mongoose, { Schema, model } from "mongoose";
 
+// const orderSchema = new Schema(
+//   {
+//     typeOfPlants: {
+//       type: String,
+//     },
+//     numberOfPlants: {
+//       type: Number,
+//     },
+//     modeOfPayment: {
+//       type: String,
+//     },
+//     rate: {
+//       type: Number,
+//     },
+//     advance: {
+//       type: Number,
+//     },
+//     dateOfAdvance: {
+//       type: Date,
+//     },
+//     bankName: {
+//       type: String,
+//     },
+//     receiptPhoto: {
+//       type: String,
+//     },
+//   },
+//   { timestamps: true }
+// );
+
 const farmerSchema = new Schema({
   name: {
     type: String,

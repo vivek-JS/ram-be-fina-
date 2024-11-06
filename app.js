@@ -27,35 +27,25 @@ server.use(
 
 // importing routes
 import farmerRoute from "./routes/farmer.route.js";
+import growthRoomRoute from "./routes/growthRoom.route.js";
+import inocalationRoute from "./routes/inocalation.route.js";
+import mediaRoute from "./routes/media.route.js";
 import orderRoute from "./routes/order.route.js";
+import plateRoute from "./routes/plate.route.js";
+import roomingOutRoute from "./routes/roomingOut.route.js";
 import userRoute from "./routes/user.route.js";
-import cmsRoute from "./routes/cms.route.js";
-import employeeRoute from "./routes/employee.route.js";
-import attendanceRoute from "./routes/attendance.route.js";
-import reportingRoute from "./routes/reporting.route.js";
-import labRoute from "./routes/lab.route.js";
-import primaryHardeingRoute from "./routes/primaryHardening.route.js";
-import secondaryHardeingRoute from "./routes/secondaryHardening.route.js";
-import godownRoute from "./routes/godown.route.js";
-import seedRoute from "./routes/seed.route.js";
-import vegetableRoute from "./routes/vegetable.route.js";
-import chemicalRoute from "./routes/chemical.route.js";
+import washingRoute from "./routes/washing.route.js";
 
 // defining routes
 server.use("/api/v1/farmer", farmerRoute);
+server.use("/api/v1/growthRoom", growthRoomRoute);
+server.use("/api/v1/inocalation", inocalationRoute);
+server.use("/api/v1/media", mediaRoute);
 server.use("/api/v1/order", orderRoute);
+server.use("/api/v1/plate", plateRoute);
+server.use("/api/v1/roomingOut", roomingOutRoute);
 server.use("/api/v1/user", userRoute);
-server.use("/api/v1/cms", cmsRoute);
-server.use("/api/v1/employee", employeeRoute);
-server.use("/api/v1/attendance", attendanceRoute);
-server.use("/api/v1/reporting", reportingRoute);
-server.use("/api/v1/lab", labRoute);
-server.use("/api/v1/primaryHardeingRoute", primaryHardeingRoute);
-server.use("/api/v1/secondaryHardeingRoute", secondaryHardeingRoute);
-server.use("/api/v1/godown", godownRoute);
-server.use("/api/v1/seed", seedRoute);
-server.use("/api/v1/vegetable", vegetableRoute);
-server.use("/api/v1/chemical", chemicalRoute);
+server.use("/api/v1/washing", washingRoute);
 
 server.use(errorRouter);
 

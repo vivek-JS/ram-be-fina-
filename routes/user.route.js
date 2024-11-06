@@ -5,7 +5,10 @@ import {
   deleteUser,
   findUser,
   login,
+<<<<<<< HEAD
   encryptPassword,
+=======
+>>>>>>> e4a271b (first commit)
 } from "../controllers/user.controller.js";
 import { check } from "express-validator";
 import checkErrors from "../middlewares/checkErrors.middleware.js";
@@ -31,7 +34,10 @@ router
       check("type", "Please provide valid type").notEmpty(),
     ],
     checkErrors,
+<<<<<<< HEAD
     encryptPassword,
+=======
+>>>>>>> e4a271b (first commit)
     findUser,
     createUser
   )

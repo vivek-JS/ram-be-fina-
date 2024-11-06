@@ -6,15 +6,25 @@ import { createOne, updateOne, deleteOne } from "./factory.controller.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-const createUser = createOne(User, "User");
-const updateUser = updateOne(User, "User");
-const deleteUser = deleteOne(User, "User");
-
-const encryptPassword = async (req, res, next) => {
+const createUser = catchAsync(async (req, res, next) => {
   const password = req.body.password;
   req.body.password = await bcrypt.hash(password, 10);
-  next();
-};
+  const doc = await new User(req.body).save();
+
+  doc.password = undefined;
+
+  const response = generateResponse(
+    "Success",
+    `User created successfully`,
+    doc,
+    undefined
+  );
+
+  return res.status(201).json(response);
+});
+
+const updateUser = updateOne(User, "User");
+const deleteUser = deleteOne(User, "User");
 
 const findUser = catchAsync(async (req, res, next) => {
   const { email } = req.body;
@@ -68,4 +78,4 @@ const login = catchAsync(async (req, res, next) => {
     .json({ token: token, response });
 });
 
-export { createUser, updateUser, deleteUser, findUser, login, encryptPassword };
+export { createUser, updateUser, deleteUser, findUser, login };

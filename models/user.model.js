@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import bcrypt from "bcrypt";
 
 const userSchema = new Schema({
   name: {
@@ -17,9 +18,6 @@ const userSchema = new Schema({
   password: {
     type: String,
     require: true,
-  },
-  jobTitle: {
-    type: String,
   },
   type: {
     type: String,

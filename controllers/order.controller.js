@@ -1,5 +1,6 @@
 import { Parser as CsvParser } from "json2csv";
 import catchAsync from "../utility/catchAsync.js";
+<<<<<<< HEAD
 import Order from "../models/order.model.js";
 import {
   getAll,
@@ -8,6 +9,12 @@ import {
   updateOneAndPushElement,
 } from "./factory.controller.js";
 import generateResponse from "../utility/responseFormat.js";
+=======
+import Farmer from "../models/farmer.model.js";
+import Order from "../models/order.model.js";
+import generateResponse from "../utility/responseFormat.js";
+import { updateOne } from "./factory.controller.js";
+>>>>>>> e4a271b (first commit)
 
 const getCsv = catchAsync(async (req, res, next) => {
   // extracting data
@@ -62,6 +69,7 @@ const getCsv = catchAsync(async (req, res, next) => {
   res.status(200).end(csvDataParsed);
 });
 
+<<<<<<< HEAD
 const getOrders = getAll(Order, "Order");
 const createOrder = createOne(Order, "Order");
 const updateOrder = updateOne(Order, "Order");
@@ -79,10 +87,29 @@ const addNewPayment = catchAsync(async (req, res, next) => {
   }
 
   const doc = await Order.findByIdAndUpdate(id, updateObj, {
+=======
+const createOrder = catchAsync(async (req, res, next) => {
+  let order = await new Order(req.body).save();
+
+  const response = await generateResponse(
+    200,
+    "Order placed successfully",
+    order,
+    undefined
+  );
+  return res.status(200).json(response);
+});
+
+const changePaymentStatus = updateOne(Order, "Order");
+
+const updateOrder = catchAsync(async (req, res) => {
+  const order = await Order.findById(req.body.id, req.body, {
+>>>>>>> e4a271b (first commit)
     new: true,
     runValidators: true,
   });
 
+<<<<<<< HEAD
   if (!doc) {
     return next(new AppError(`No order found with that ID`, 404));
   }
@@ -99,3 +126,28 @@ const addNewPayment = catchAsync(async (req, res, next) => {
 
 
 export { getCsv, createOrder, updateOrder, addNewPayment, getOrders };
+=======
+  if (!order) {
+    return next(new AppError("No document found with that ID", 404));
+  }
+
+  if (req.body.payment) {
+    order.payment.push(req.body.payment);
+  }
+
+  if (req.body.paymentStatus) {
+    order.paymentStatus = req.body.paymentStatus;
+  }
+  await order.save();
+
+  const response = await generateResponse(
+    200,
+    "Order updated successfully",
+    order,
+    undefined
+  );
+  return res.status(200).json(response);
+});
+
+export { getCsv, createOrder, changePaymentStatus, updateOrder };
+>>>>>>> e4a271b (first commit)
